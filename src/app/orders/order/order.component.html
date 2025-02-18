@@ -1,0 +1,120 @@
+<form #orderForm="ngForm" autocomplete="off" *ngIf="orderserv.formData" (submit)="onSubmit(orderForm)">
+    <input type="hidden" name="OrderId" [(ngModel)]="orderserv.formData.OrderId">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="OrderNo">Order No</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">#</div>
+                    </div>
+                    <input name="OrderNo" [(ngModel)]="orderserv.formData.OrderNo" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Customer">Customer</label>
+
+                <!-- <select name="CustomerId" [(ngModel)]="orderserv.formData.CustomerId" class="form-control" [class.is-invalid]="!isValid && orderserv.formData.CustomerId==0">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of customerList" value="{{item.CustomerId}}">{{item.Name}}</option>
+                </select> -->
+                <input type="text" name="CustomerName" [(ngModel)]="orderserv.formData.customer.CustomerName"
+                    class="form-control"
+                    [class.is-invalid]="!isValid && (orderserv.formData.customer.CustomerName==null||orderserv.formData.customer.CustomerName.length == 0)">
+            </div>
+
+            <div class="form-group">
+                <label for="Tips">Discount</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">%</div>
+                    </div>
+                    <input type="text" name="Discount" [(ngModel)]="orderserv.formData.Discount" class="form-control"
+                        (keyup)="updateGrandTotal()" type="number">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="PayMethod">Payment Method</label>
+                <select name="PayMethod" [(ngModel)]="orderserv.formData.PayMethod" class="form-control">
+                    <option value="">--Select--</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Card">Card</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="GTotal">Grand Total</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-inr" aria-hidden="true"></i></div>
+                    </div>
+                    <input name="GTotal" [(ngModel)]="orderserv.formData.GTotal" class="form-control" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="GST">GST</label>
+                        <div class="input-group">                           
+                            <input name="GST" [(ngModel)]="orderserv.formData.GST" class="form-control" (keyup)="updateGrandTotal()"  readonly>
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fa fa-percent" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="GST">CGST</label>
+                        <div class="input-group">                           
+                            <input name="GST" [(ngModel)]="orderserv.formData.CGST" class="form-control" (keyup)="updateGrandTotal()"  readonly>
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fa fa-percent" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Order items tables-->
+    <table class="table table-borderless">
+        <thead class="thead-light">
+            <th>Food</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>
+                <a class="btn btn-sm btn-success text-white"
+                    (click)="AddorEditOrderItem(null,orderserv.formData.OrderId)"><i class="fa fa-plus"></i> Add
+                    Item</a>
+            </th>
+        </thead>
+        <tbody>
+            <tr *ngIf="orderserv.orderItems.length == 0"
+                [class.text-danger]="!isValid && orderserv.orderItems.length==0">
+                <td class="font-italic text-center" colspan="5">
+                    No food item selected for this order.
+                </td>
+            </tr>
+            <tr *ngFor="let item of orderserv.orderItems;let i=index;">
+                <td>{{item.ItemName}}</td>
+                <td>{{item.Price}}</td>
+                <td>{{item.Quantity}}</td>
+                <td>{{item.Total}}</td>
+                <td>
+                    <a class="btn btn-sm btn-info text-white"
+                        (click)="AddorEditOrderItem(i,orderserv.formData.OrderId)"><i class="fa fa-pencil"></i></a>
+                    <a class="btn btn-sm btn-danger text-white ml-1" (click)="OnDeleteOrderItem(item.OrderItemId,i)"><i
+                            class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <a class="btn btn-outline-dark ml-1" routerLink="/orders"><i class="fa fa-table"></i> View Orders</a>
+        <button type="button" class="btn btn-outline-dark ml-1" (click)="ShowMenu()"><i class="fa fa-bars"
+                aria-hidden="true"></i> Menu</button>
+    </div>
+</form>

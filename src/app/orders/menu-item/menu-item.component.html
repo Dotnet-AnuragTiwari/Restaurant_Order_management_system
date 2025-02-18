@@ -1,0 +1,14 @@
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <th>Sr No.</th>
+        <th> Item</th>
+        <th>Price</th>
+    </thead>
+    <tbody>
+       <tr *ngFor="let item of ItemList;let i = index">
+           <td>{{i+1}}</td>
+           <td>{{item.Name}}</td>
+           <td>{{item.Price}}</td>
+       </tr>
+    </tbody>
+</table>

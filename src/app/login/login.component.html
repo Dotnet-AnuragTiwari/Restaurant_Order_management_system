@@ -1,0 +1,44 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<html>
+
+<head>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+</head>
+
+<body id="LoginForm">
+    <div class="container">
+        <div class="login-form">
+            <div class="main-div">
+                <div class="panel">
+                    <h2>Admin Login</h2>
+                    <p [class.text-danger]="IsError" >Please enter your email and password</p>
+                </div>
+                <form id="Login" #loginForm="ngForm" autocomplete="off"  (submit)="onSubmit(loginForm)">
+                    <div class="form-group">
+                        <input type="text" name="Username" class="form-control" [(ngModel)]="login.Email" id="inputEmail" placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="Password" class="form-control" [(ngModel)]="login.Password" id="inputPassword" placeholder="Password" required>
+                    </div>
+                    <div class="forgot">
+                        <a href="reset.html">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+
+                </form>
+            </div>
+            <p class="botto-text">Copyright&#64;2021, Designed by Anurag Tiwari</p>
+        </div>
+    </div>
+</body>
+
+</html>
